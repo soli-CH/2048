@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+  <script src="js/2048.js"></script>
+  <link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.min.css" />
+  <style>
+    table {
+      border-spacing: none;
+      border-collapse: collapse;
+    }
+    td {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #333;
+      text-align: center;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div id ='field'></div>
+
+  <script>
+    $(document).ready(function() {
+      init();
+    });
+  </script>
+</body>
+</html>
