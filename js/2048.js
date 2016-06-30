@@ -47,31 +47,55 @@ function registerEvents() {
   $(document).on('keyup', function(event) {
     switch(event.which) {
       case 37 :
-        shiftLeft();
-        addNumber();
-        paint();
+        $(document).trigger('shiftLeft');
         break;
       case 38 :
-        shiftUp();
-        addNumber();
-        paint();
+        $(document).trigger('shiftUp');
         break;
       case 39 :
-        shiftRight();
-        addNumber();
-        paint();
+        $(document).trigger('shiftRight');
         break;
       case 40 :
-        shiftDown();
-        addNumber();
-        paint();
+        $(document).trigger('shiftDown');
         break;
       default : break;
     }
   });
 }
 
-function shiftLeft() {
+$(document).on('shiftLeft', function(event) {
+  shifter();
+  addNumber();
+  paint();
+});
+
+$(document).on('shiftRight', function(event) {
+  reverseNumbers();
+  shifter();
+  reverseNumbers();
+  addNumber();
+  paint();
+});
+
+$(document).on('shiftUp', function(event) {
+  rotateNumbers();
+  shifter();
+  rotateNumbers();
+  addNumber();
+  paint();
+});
+
+$(document).on('shiftDown', function(event) {
+  rotateNumbers();
+  reverseNumbers();
+  shifter();
+  reverseNumbers();
+  rotateNumbers();
+  addNumber();
+  paint();
+});
+
+function shifter() {
   for(var i = 0; i < numbers.length; i++) {
     var row = numbers[i];
     var shifts = 6;
@@ -99,46 +123,6 @@ function shiftLeft() {
   }
 }
 
-function shiftRight() {
-  for(var i = 0; i < numbers.length; i++) {
-    var row = numbers[i];
-    var shifts = 6;
-    for(var j = row.length - 1; j > 0; j--) {
-      var col = row[j];
-      if(row[j] == "") {
-        shifts--;
-        row.splice(j,1);
-        row.unshift('');
-        j--;
-      } else if (j > 0 && row[j] == row[j-1]) {
-        row[j] = row[j]*2;
-        row[j-1] = "";
-        j--;
-      } else if (j > 1 && row[j] == row[j-2]) {
-        row[j] = row[j]*2;
-        row[j-2] = "";
-        j--;
-      } else if (j > 2 && row[j] == row[j-3]) {
-        row[j] = row[j]*2;
-        row[j-3] = "";
-        j--;
-      }
-    }
-  }
-}
-
-function shiftUp() {
-  rotateNumbers();
-  shiftLeft();
-  rotateNumbers();
-}
-
-function shiftDown() {
-  rotateNumbers();
-  shiftRight();
-  rotateNumbers();
-}
-
 function rotateNumbers() {
   var newArray = [];
   for(var i = 0; i < numbers.length; i++){
@@ -150,4 +134,10 @@ function rotateNumbers() {
     };
   };
   numbers = newArray;
+}
+
+function reverseNumbers() {
+  for(var i = 0; i < numbers.length; i++){
+    numbers[i].reverse();
+  };
 }
